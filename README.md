@@ -9,7 +9,7 @@
 - is an example that has been run with 10 .ab1 sequencing files. Data for these are in the [seq_data](seq_data/old_ab1s/) folder and results are in the [python_outputs](python_outputs/old_ab1s/) folder. The subfolder for both is /old_ab1s.
 
 ## functions working in the background
-- these are in [src folder](/src) in a file called ab1_helpers.py 
+- these are in [src folder](/src) in a file called [ab1_helpers.py](src/ab1_helpers.py) 
 
 Tested using Python 3.13 in a Jupyter notebook in VSCode.
 
