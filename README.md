@@ -6,7 +6,7 @@
 - can be used with your own sequencing files.
 
 ### ab1_blast_workflow_example.ipynb ### 
-- is an example that has been run with 10 .ab1 sequencing files. Data for these are in the seq_data folder and results are in the python_outputs folder. The subfolder for both is /old_ab1s.
+- is an example that has been run with 10 .ab1 sequencing files. Data for these are in the [seq_data](seq_data/old_ab1s/) folder and results are in the [python_outputs](python_outputs/old_ab1s/) folder. The subfolder for both is /old_ab1s.
 
 ## functions working in the background
 - these are in [src folder](/src) in a file called ab1_helpers.py 
