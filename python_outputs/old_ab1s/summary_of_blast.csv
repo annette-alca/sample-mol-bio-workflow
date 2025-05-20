@@ -1,0 +1,11 @@
+Sample_ID,Sample_DNA_Length,Accession_of_Top_Hit,Title,Identity(%),Alignment Length,NCBI_Link
+2011-03-15_B05_AA412RJF,1480,KT176092,gi|880942004|gb|KT176092.1| Suicide vector pCD-Dhah1; complete sequence,97.73,927,https://www.ncbi.nlm.nih.gov/nuccore/KT176092
+2009-05-13_G09_AAPAA405T7,1339,CP029160,gi|1389182097|gb|CP029160.1| Saccharomyces cerevisiae strain SY14 chromosome I; complete sequence,98.87,530,https://www.ncbi.nlm.nih.gov/nuccore/CP029160
+2011-04-08_G12_AA418F,1418,KT176092,gi|880942004|gb|KT176092.1| Suicide vector pCD-Dhah1; complete sequence,97.23,866,https://www.ncbi.nlm.nih.gov/nuccore/KT176092
+2009-05-13_A10_AAPAA406T7,1375,CP029160,gi|1389182097|gb|CP029160.1| Saccharomyces cerevisiae strain SY14 chromosome I; complete sequence,96.96,527,https://www.ncbi.nlm.nih.gov/nuccore/CP029160
+2011-03-03_D08_AA250BLF,1348,CP029160,gi|1389182097|gb|CP029160.1| Saccharomyces cerevisiae strain SY14 chromosome I; complete sequence,96.40,584,https://www.ncbi.nlm.nih.gov/nuccore/CP029160
+2011-03-03_E08_AA250BLR,1352,CP029160,gi|1389182097|gb|CP029160.1| Saccharomyces cerevisiae strain SY14 chromosome I; complete sequence,88.16,591,https://www.ncbi.nlm.nih.gov/nuccore/CP029160
+2009-05-13_H09_AAPAA406T3,1329,CP029160,gi|1389182097|gb|CP029160.1| Saccharomyces cerevisiae strain SY14 chromosome I; complete sequence,100.00,521,https://www.ncbi.nlm.nih.gov/nuccore/CP029160
+2011-04-08_H12_AA418R,1397,OK558599,gi|2158458595|gb|OK558599.1| Vector pTwist KI-Template GFP; complete sequence,96.35,903,https://www.ncbi.nlm.nih.gov/nuccore/OK558599
+2011-03-15_A05_AA411LJR,1514,OK558599,gi|2158458595|gb|OK558599.1| Vector pTwist KI-Template GFP; complete sequence,96.34,1067,https://www.ncbi.nlm.nih.gov/nuccore/OK558599
+2009-05-13_F09_AAPAA405T3,1346,CP029160,gi|1389182097|gb|CP029160.1| Saccharomyces cerevisiae strain SY14 chromosome I; complete sequence,99.81,521,https://www.ncbi.nlm.nih.gov/nuccore/CP029160
