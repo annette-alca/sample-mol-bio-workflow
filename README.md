@@ -1,4 +1,4 @@
-## This is a sample molecular biology and bioinformatics workflow that is run from one Jupyter notebook.
+## 🧬 This is a sample molecular biology and bioinformatics workflow that is run from one Jupyter notebook.
 - Automating the analysis of multiple Sanger sequencing files (limit of 50 set by NCBI).
 - DNA Sanger sequencing data to a CSV file of the top Blast matches, XML files of 50 matches are also saved.
 
