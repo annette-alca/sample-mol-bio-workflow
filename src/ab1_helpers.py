@@ -5,15 +5,34 @@ Do not remove this file from the src folder. Do not rename the src folder.
 -Annette"""
 
 from Bio import SeqIO
-import csv, os, glob, time
+from Bio.SeqRecord import SeqRecord
+from Bio.Seq import Seq
+import csv, os, glob, time, io
 from Bio.Blast import NCBIWWW, NCBIXML
 
 
-def ab1_reader(ab1file):
+def ab1_reader(ab1file: str) -> SeqRecord:
+    """Read a single .ab1 Sanger sequencing file.
+
+    Args:
+        ab1file: Path to the .ab1 file.
+
+    Returns:
+        A BioPython SeqRecord containing the sequence and metadata.
+    """
     abrecord = SeqIO.read(ab1file,'abi')
     return abrecord
 
-def mult_ab1_to_dict(ab1_subfolder):
+def mult_ab1_to_dict(ab1_subfolder: str) -> dict[str, Seq] | None:
+    """Read all .ab1 files in a subfolder and return a dictionary of sequences.
+
+    Args:
+        ab1_subfolder: Name of the subfolder within seq_data/ containing .ab1 files.
+
+    Returns:
+        A dictionary mapping sample IDs (filenames without extension) to Seq objects,
+        or None if the subfolder is not found.
+    """
     seqdict = {}
     ab1_path = os.getcwd() + '/seq_data/' + ab1_subfolder
     try:
@@ -28,8 +47,16 @@ def mult_ab1_to_dict(ab1_subfolder):
         seqdict[sample_id] = record.seq
     return seqdict
 
-def mult_ab1_to_single_fasta(ab1_subfolder, filename = "my_ab1s.fasta"):
-    '''saves one fasta from ab1 folder'''
+def mult_ab1_to_single_fasta(ab1_subfolder: str, filename: str = "my_ab1s.fasta") -> tuple[dict[str, Seq], str]:
+    """Convert all .ab1 files in a subfolder to a single FASTA file.
+
+    Args:
+        ab1_subfolder: Name of the subfolder within seq_data/ containing .ab1 files.
+        filename: Name for the output FASTA file. Defaults to "my_ab1s.fasta".
+
+    Returns:
+        A tuple of (sequence dictionary, output folder path).
+    """
     if ".fa" not in filename:
         filename += ".fasta"
     output_folder = f"python_outputs/{ab1_subfolder}"
@@ -49,16 +76,31 @@ def mult_ab1_to_single_fasta(ab1_subfolder, filename = "my_ab1s.fasta"):
 
 
 
-def blast_seq(seq_obj):
-    '''uses qblast from Bio.Blast.NCBIWWW'''
+def blast_seq(seq_obj: Seq) -> io.StringIO:
+    """Run a BLAST search for a single sequence against NCBI's nucleotide database.
+
+    Args:
+        seq_obj: A BioPython Seq object to search.
+
+    Returns:
+        A file-like handle containing XML-formatted BLAST results.
+    """
     result = NCBIWWW.qblast("blastn","nt", seq_obj, format_type="XML")
     return result
 
-def blast_seqdict(seqdict,output_folder):
+def blast_seqdict(seqdict: dict[str, Seq], output_folder: str) -> None:
+    """Run BLAST searches for all sequences in a dictionary and save results as XML.
+
+    Includes a 3-second delay between queries to respect NCBI rate limits.
+
+    Args:
+        seqdict: Dictionary mapping sample IDs to Seq objects.
+        output_folder: Path to the folder where XML result files will be saved.
+    """
     try:
         os.listdir(output_folder)
     except FileNotFoundError:
-        print(f"""folder {output_folder} does not exist. 
+        print(f"""folder {output_folder} does not exist.
               Please create it or name a different folder.""")
         return
     for sample_id, sequence in seqdict.items():
@@ -67,15 +109,23 @@ def blast_seqdict(seqdict,output_folder):
             xml_path = f"{output_folder}/{sample_id}_blast.xml"
             with open(xml_path, "w") as out_handle:
                 out_handle.write(result.read())
-            
+
             print(f"{sample_id} qblast complete, result saved to {xml_path}")
 
         except Exception as e:
             print(f"Failed to BLAST {sample_id}: {e}")
         time.sleep(3)
 
-def xml_to_table(seqdict,output_folder):
-    '''convert XML to single csv file'''
+def xml_to_table(seqdict: dict[str, Seq], output_folder: str) -> None:
+    """Parse BLAST XML results and produce a CSV summary of top hits.
+
+    Reads all XML files in the output folder and writes a summary_of_blast.csv
+    with the top hit for each sequence (accession, title, identity %, etc.).
+
+    Args:
+        seqdict: Dictionary mapping sample IDs to Seq objects (used for DNA length).
+        output_folder: Path to the folder containing XML result files.
+    """
     csvfile = output_folder + "/summary_of_blast.csv"
     xmls = glob.glob(output_folder + "/*.xml")
 

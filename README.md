@@ -13,7 +13,17 @@
 
 Tested using Python 3.13 in a Jupyter notebook in VSCode.
 
-Required modules (BioPython, ipykernel for Jupyter notebooks) can be installed from the requirements.txt file. 
+## Installation
+
+### Using uv (recommended)
+```bash
+uv sync
+```
+
+### Using pip
+```bash
+pip install -r requirements.txt
+```
 
 
 
