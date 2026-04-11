@@ -30,17 +30,28 @@ tests/
 
 Tested using Python 3.13 in a Jupyter notebook in VSCode.
 
-## Installation
+## Installation and Use
 
-### Using uv (recommended)
+Requires Python 3.10+ and Git.
+
+1. Clone the repo
 ```bash
-uv sync
+git clone https://github.com/annette-alca/sample-mol-bio-workflow.git
 ```
 
-### Using pip
+2. Open the `sample-mol-bio-workflow` folder in VSCode.
+
+3. In the VSCode terminal, install dependencies using uv (recommended):
+```bash
+pip install uv
+uv sync
+```
+Or alternatively, using pip:
 ```bash
 pip install -r requirements.txt
 ```
+
+4. Open **ab1_blast_workflow_template.ipynb** in VSCode and follow the instructions in every block. VSCode will prompt you to select a Python kernel — choose the virtual environment from the project (venv or .venv). You can use **ab1_blast_workflow_example.ipynb** as a guide.
 
 ## Testing
 
