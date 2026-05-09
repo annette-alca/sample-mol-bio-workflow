@@ -35,12 +35,14 @@ def mult_ab1_to_dict(ab1_subfolder: str) -> dict[str, Seq] | None:
     """
     seqdict = {}
     ab1_path = os.getcwd() + '/seq_data/' + ab1_subfolder
-    try:
-        ab1files = glob.glob(ab1_path + "/*.ab1")
-    except FileNotFoundError:
-        print("""Cannot find ab1 subfolder, please make sure {ab1_subfolder} is in:
-            \n{path[:len(path)-len(ab1_subfolder)]}.""")
-        return
+    if not os.path.isdir(ab1_path):
+        print(f"Cannot find ab1 subfolder '{ab1_subfolder}'. "
+              f"Please make sure it exists in: {os.path.dirname(ab1_path)}")
+        return None
+    ab1files = glob.glob(os.path.join(ab1_path, "*.ab1"))
+    if not ab1files:
+        print(f"No .ab1 files found in {ab1_path}.")
+        return None
     for ab1file in ab1files:
         sample_id = ab1file[len(ab1_path)+1:-4] #get file name
         record = ab1_reader(ab1file)
@@ -67,6 +69,8 @@ def mult_ab1_to_single_fasta(ab1_subfolder: str, filename: str = "my_ab1s.fasta"
 
     fasta_path = f"python_outputs/{ab1_subfolder}/{filename}"
     seqdict = mult_ab1_to_dict(ab1_subfolder)
+    if seqdict is None:
+        return None, None
     with open (fasta_path,'w', encoding='utf-8') as f:
         for sample_id, sequence in seqdict.items():
             f.write (f">{sample_id}\n")

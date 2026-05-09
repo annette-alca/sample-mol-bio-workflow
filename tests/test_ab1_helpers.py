@@ -47,7 +47,13 @@ class TestMultAb1ToDict:
 
     def test_nonexistent_subfolder_returns_none(self):
         result = mult_ab1_to_dict("does_not_exist")
-        assert result is None or len(result) == 0
+        assert result is None
+
+    def test_empty_subfolder_returns_none(self, tmp_path, monkeypatch):
+        monkeypatch.chdir(tmp_path)
+        os.makedirs("seq_data/empty_subfolder")
+        result = mult_ab1_to_dict("empty_subfolder")
+        assert result is None
 
 
 # --- mult_ab1_to_single_fasta ---
@@ -80,6 +86,17 @@ class TestMultAb1ToSingleFasta:
         with open(fasta_path) as f:
             headers = [line for line in f if line.startswith(">")]
         assert len(headers) == len(seqdict)
+
+    def test_nonexistent_subfolder_returns_none_tuple(self):
+        seqdict, output_folder = mult_ab1_to_single_fasta("does_not_exist", "irrelevant.fasta")
+        assert seqdict is None
+        assert output_folder is None
+
+    def test_empty_subfolder_returns_none_tuple(self):
+        os.makedirs("seq_data/empty_subfolder")
+        seqdict, output_folder = mult_ab1_to_single_fasta("empty_subfolder", "irrelevant.fasta")
+        assert seqdict is None
+        assert output_folder is None
 
 
 # --- xml_to_table ---
