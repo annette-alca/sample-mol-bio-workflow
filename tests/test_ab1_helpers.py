@@ -140,6 +140,20 @@ class TestXmlToTable:
             row_count = sum(1 for _ in f) - 1  # subtract header
         assert row_count == xml_count
 
+    def test_none_seqdict_writes_no_csv(self, tmp_path):
+        xml_to_table(None, str(tmp_path))
+        csvfile = os.path.join(str(tmp_path), "summary_of_blast.csv")
+        assert not os.path.exists(csvfile)
+
+
+# --- blast_seqdict None case (no network) ---
+
+class TestBlastSeqdictNone:
+    def test_none_seqdict_writes_no_xml(self, tmp_path):
+        blast_seqdict(None, str(tmp_path))
+        xmls = glob.glob(os.path.join(str(tmp_path), "*.xml"))
+        assert xmls == []
+
 
 # --- NCBI network tests (skip in CI) ---
 

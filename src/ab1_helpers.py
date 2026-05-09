@@ -101,6 +101,9 @@ def blast_seqdict(seqdict: dict[str, Seq], output_folder: str) -> None:
         seqdict: Dictionary mapping sample IDs to Seq objects.
         output_folder: Path to the folder where XML result files will be saved.
     """
+    if seqdict is None:
+        print("No sequences from fasta to BLAST.")
+        return
     try:
         os.listdir(output_folder)
     except FileNotFoundError:
@@ -115,7 +118,7 @@ def blast_seqdict(seqdict: dict[str, Seq], output_folder: str) -> None:
                 out_handle.write(result.read())
 
             print(f"{sample_id} qblast complete, result saved to {xml_path}")
-
+        
         except Exception as e:
             print(f"Failed to BLAST {sample_id}: {e}")
         time.sleep(3)
@@ -130,6 +133,10 @@ def xml_to_table(seqdict: dict[str, Seq], output_folder: str) -> None:
         seqdict: Dictionary mapping sample IDs to Seq objects (used for DNA length).
         output_folder: Path to the folder containing XML result files.
     """
+    if seqdict is None:
+        print ("No sequences to save to CSV.")
+        return
+    
     csvfile = output_folder + "/summary_of_blast.csv"
     xmls = glob.glob(output_folder + "/*.xml")
 
